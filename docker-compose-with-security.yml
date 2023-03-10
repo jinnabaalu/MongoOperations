@@ -1,0 +1,69 @@
+version: '3.9'
+services:
+  mongo1:
+    image: mongo:6.0.4
+    container_name: mongo1
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+      MONGO_INITDB_DATABASE: devDB
+      TZ: "UTC"
+    volumes:
+      - mongo1-data:/data/db
+      - ./key/mongoKeyfile:/opt/mongoKeyfile
+    ports:
+      - "27017:27017"
+    networks:
+      mongoCluster:
+    command: ["mongod", "--replSet", "mongoDevReplicaSet", "--bind_ip", "localhost,mongo1", "--auth", "--keyFile", "/opt/mongoKeyfile"]
+
+  mongo2:
+    image: mongo:6.0.4
+    container_name: mongo2
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+      MONGO_INITDB_DATABASE: devDB
+      TZ: "UTC"
+    volumes:
+      - mongo2-data:/data/db
+      - ./key/mongoKeyfile:/opt/mongoKeyfile
+    networks:
+      mongoCluster:
+    command: ["mongod", "--replSet", "mongoDevReplicaSet", "--bind_ip", "localhost,mongo2", "--auth", "--keyFile", "/opt/mongoKeyfile"]
+
+  mongo3:
+    image: mongo:6.0.4
+    container_name: mongo3
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+      MONGO_INITDB_DATABASE: devDB
+      TZ: "UTC"
+    volumes:
+      - mongo3-data:/data/db
+      - ./key/mongoKeyfile:/opt/mongoKeyfile
+    networks:
+      mongoCluster:
+    command: ["mongod", "--replSet", "mongoDevReplicaSet", "--bind_ip", "localhost,mongo3", "--auth", "--keyFile", "/opt/mongoKeyfile"]
+  mongo-express:
+    image: mongo-express
+    container_name: mongo-express
+    restart: always
+    ports:
+      - 127.0.0.1:8081:8081
+    networks:
+      mongoCluster:
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: example
+      ME_CONFIG_MONGODB_URL: mongodb://root:example@mongo1:27017/
+networks:
+  mongoCluster:
+volumes:
+  mongo1-data:
+  mongo2-data:
+  mongo3-data:
