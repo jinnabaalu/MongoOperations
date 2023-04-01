@@ -8,7 +8,7 @@ Generate keyfile for the machine you are working with
 
 - Create the file if you are on mac and running as a container
 ```bash
-openssl rand -base64 741 > mongoKeyFileMac
+openssl rand -base64 741 >> mongoKeyFileMac
 chmod 600 mongoKeyFileMac
 ```
 
@@ -26,15 +26,25 @@ sudo chgrp 999 mongoKeyFileLinux
 
 ### Run the mongodb single node replicaset with docker-compose
 
+- Run the application 
+
 ```bash
-cd single-node-rs/
+cd docker-mongo/single-node-rs
+docker-compose up -d
+```
+- Restart the service 
+
+```bash
+cd docker-mongo/single-node-rs
+docker-compose down
 docker-compose up -d
 ```
 
 ### Connection String
 
 ```bash
-mongodb://username:password@localhost:27017/?authSource=admin&readPreference=primary&ssl=false&replicaSet=devrs 
+mongodb://mongouser:mongopass@127.0.0.1:27017/?authSource=admin&readPreference=primary&ssl=false&replicaSet=devrs 
+mongodb://mongouser:mongopass@localhost:27017/?authSource=admin&readPreference=primary&ssl=false&replicaSet=devrs 
 ```
 
 # Deploying Mongo 3 Node Cluster 
@@ -51,6 +61,27 @@ docker-compose up -d
 
 ```bash
 
+```
+
+## Connect to MongoSH and create collection
+
+```bash
+# Connect to the mongo container
+docker exec -it mongodb bash
+
+# Connect to the mongosh client within the mongo container
+mongosh --quiet -u mongouser -p mongopass
+
+# Use any database, it creates the db if it doesn't exists
+use devdb
+
+# Create the collection with document inser query, which creates the schema and inserts document into the collection
+
+db.movie.insert({"name":"Avengers: Endgame"})
+
+# Get all the data from the movie collection 
+
+db.movie.find()
 ```
 
 ## Initialise the 3 node cluster 
