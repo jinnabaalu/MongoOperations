@@ -42,9 +42,10 @@ docker-compose up -d
 
 ### Connection String
 
+Here is the connection string for connecting to the mongo client from the any programing lang
+
 ```bash
-mongodb://mongouser:mongopass@127.0.0.1:27017/?authSource=admin&readPreference=primary&ssl=false&replicaSet=devrs 
-mongodb://mongouser:mongopass@localhost:27017/?authSource=admin&readPreference=primary&ssl=false&replicaSet=devrs 
+mongodb://mongouser:mongopass@127.0.0.1:27017/?authSource=admin&readPreference=primary&ssl=false&replicaSet=devrs
 ```
 
 # Deploying Mongo 3 Node Cluster 
