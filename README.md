@@ -1,9 +1,48 @@
+# MongoDB Single Node Replica Set for dev environment
+
+## Enabling Auth for Security
+
+Generate keyfile for the machine you are working with
+
+### Mac
+
+- Create the file if you are on mac and running as a container
+```bash
+openssl rand -base64 741 > mongoKeyFileMac
+chmod 600 mongoKeyFileMac
+```
+
+### Linux
+
+- Create the file if you are on linux and running as a container
+```bash
+openssl rand -base64 756 > mongoKeyFileLinux
+chmod 600 mongoKeyFileLinux
+sudo chown 999 mongoKeyFileLinux
+sudo chgrp 999 mongoKeyFileLinux
+```
+
+## Single Node 
+
+### Run the mongodb single node replicaset with docker-compose
+
+```bash
+cd single-node-rs/
+docker-compose up -d
+```
+
+### Connection String
+
+```bash
+mongodb://username:password@localhost:27017/?authSource=admin&readPreference=primary&ssl=false&replicaSet=devrs 
+```
+
 # Deploying Mongo 3 Node Cluster 
 
 - Using docker-compose
 
 ```bash
-cd mongodb/
+cd three-node-rs/
 docker-compose down
 docker-compose up -d
 ```
@@ -14,7 +53,7 @@ docker-compose up -d
 
 ```
 
-## Initialise the cluster 
+## Initialise the 3 node cluster 
 
 ```bash
 docker exec -it mongo1 mongosh --eval "rs.initiate({
@@ -25,7 +64,6 @@ docker exec -it mongo1 mongosh --eval "rs.initiate({
    {_id: 2, host: \"mongo3\"}
  ]
 })"
-
 ```
 
 ## Verify the Multinode replica set with mongoDB 
@@ -43,7 +81,3 @@ docker stop mongo1
 docker exec -it mongo2 mongosh --eval "rs.status()"
 docker exec -it mongo3 mongosh --eval "rs.status()"
 ```
-
-
-
-

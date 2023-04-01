@@ -11,12 +11,15 @@ services:
       TZ: "UTC"
     volumes:
       - mongo1-data:/data/db
-      - ./key/mongoKeyfile:/opt/mongoKeyfile
+      # Use below line if you are running the container in linux machine
+      # - ../keyfile-linux/mongoKeyFileLinux:/opt/keyfile/mongoKeyFileLinux
+      # Use below line if you are running the container in linux machine
+      - ../keyfile-mac/mongoKeyFileMac:/opt/keyfile/mongoKeyFileMac
     ports:
       - "27017:27017"
     networks:
       mongoCluster:
-    command: ["mongod", "--replSet", "mongoDevReplicaSet", "--bind_ip", "localhost,mongo1", "--auth", "--keyFile", "/opt/mongoKeyfile"]
+    command: ["mongod", "--replSet", "mongoDevReplicaSet", "--bind_ip", "localhost,mongo1", "--auth", "--keyFile", "/opt/mongoKeyFileMac"]
 
   mongo2:
     image: mongo:6.0.4
@@ -29,10 +32,10 @@ services:
       TZ: "UTC"
     volumes:
       - mongo2-data:/data/db
-      - ./key/mongoKeyfile:/opt/mongoKeyfile
+      - ./key/mongoKeyFileMac:/opt/mongoKeyFileMac
     networks:
       mongoCluster:
-    command: ["mongod", "--replSet", "mongoDevReplicaSet", "--bind_ip", "localhost,mongo2", "--auth", "--keyFile", "/opt/mongoKeyfile"]
+    command: ["mongod", "--replSet", "mongoDevReplicaSet", "--bind_ip", "localhost,mongo2", "--auth", "--keyFile", "/opt/mongoKeyFileMac"]
 
   mongo3:
     image: mongo:6.0.4
@@ -45,10 +48,10 @@ services:
       TZ: "UTC"
     volumes:
       - mongo3-data:/data/db
-      - ./key/mongoKeyfile:/opt/mongoKeyfile
+      - ./key/mongoKeyFileMac:/opt/mongoKeyFileMac
     networks:
       mongoCluster:
-    command: ["mongod", "--replSet", "mongoDevReplicaSet", "--bind_ip", "localhost,mongo3", "--auth", "--keyFile", "/opt/mongoKeyfile"]
+    command: ["mongod", "--replSet", "mongoDevReplicaSet", "--bind_ip", "localhost,mongo3", "--auth", "--keyFile", "/opt/mongoKeyFileMac"]
   mongo-express:
     image: mongo-express
     container_name: mongo-express
