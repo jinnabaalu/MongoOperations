@@ -1,19 +1,26 @@
-# MongoDB Single Node Replica Set for dev environment
+# MongoDB as Container 
 
-## Enabling Auth for Security
+- [MongoDB Single Node Cluster with Replicaset]()
+- [MongoDB 3 Node Cluster in Single Server with Replicaset]()
+- [MongoDB 3 Node Cluster in Three Servers with Replicaset]()
+- [Enable Authentication]()
+- [Connect to MongoSH and create collection]()
+- [Common Commands used to interact with mongodb cluster]()
+- [Errors in MongoDB Cluster Setup]()
 
+## MongoDB Single Node Replica Set for dev environment
+
+### Enabling Auth for Security
 Generate keyfile for the machine you are working with
 
-### Mac
-
+#### Mac
 - Create the file if you are on mac and running as a container
 ```bash
 openssl rand -base64 741 >> mongoKeyFileMac
 chmod 600 mongoKeyFileMac
 ```
 
-### Linux
-
+#### Linux
 - Create the file if you are on linux and running as a container
 ```bash
 openssl rand -base64 756 > mongoKeyFileLinux
@@ -22,9 +29,9 @@ sudo chown 999 mongoKeyFileLinux
 sudo chgrp 999 mongoKeyFileLinux
 ```
 
-## Single Node 
+### Single Node 
 
-### Run the mongodb single node replicaset with docker-compose
+#### Run the mongodb single node replicaset with docker-compose
 
 - Run the application 
 
@@ -40,7 +47,7 @@ docker-compose down
 docker-compose up -d
 ```
 
-### Connection String
+#### Connection String
 
 Here is the connection string for connecting to the mongo client from the any programing lang
 
@@ -64,7 +71,7 @@ docker-compose up -d
 
 ```
 
-## Connect to MongoSH and create collection
+### Connect to MongoSH and create collection
 
 ```bash
 # Connect to the mongo container
@@ -85,7 +92,7 @@ db.movie.insert({"name":"Avengers: Endgame"})
 db.movie.find()
 ```
 
-## Initialise the 3 node cluster 
+### Initialise the 3 node cluster 
 
 ```bash
 docker exec -it mongo1 mongosh --eval "rs.initiate({
@@ -98,7 +105,7 @@ docker exec -it mongo1 mongosh --eval "rs.initiate({
 })"
 ```
 
-## Verify the Multinode replica set with mongoDB 
+### Verify the Multinode replica set with mongoDB 
 
 - Verify the cluster
 ```bash
