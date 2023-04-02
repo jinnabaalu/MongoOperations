@@ -65,12 +65,24 @@ docker-compose down
 docker-compose up -d
 ```
 
-- Using kubernetes manifest
+### Initialise the 3 node cluster 
 
 ```bash
-
+docker exec -it mongo1 mongosh --quiet -u mongouser -p mongopass --eval "rs.initiate({
+ _id: \"devrs\",
+ members: [
+   {_id: 0, host: \"mongo1\"},
+   {_id: 1, host: \"mongo2\"},
+   {_id: 2, host: \"mongo3\"}
+ ]
+})"
 ```
 
+Expected Output is 
+
+```bash
+{ ok: 1 }
+```
 ### Connect to MongoSH and create collection
 
 ```bash
@@ -92,18 +104,6 @@ db.movie.insert({"name":"Avengers: Endgame"})
 db.movie.find()
 ```
 
-### Initialise the 3 node cluster 
-
-```bash
-docker exec -it mongo1 mongosh --eval "rs.initiate({
- _id: \"mongoDevReplicaSet\",
- members: [
-   {_id: 0, host: \"mongo1\"},
-   {_id: 1, host: \"mongo2\"},
-   {_id: 2, host: \"mongo3\"}
- ]
-})"
-```
 
 ### Verify the Multinode replica set with mongoDB 
 
