@@ -7,15 +7,15 @@ services:
     environment:
       - PUID=1000
       - PGID=1000
-      # - MONGO_INITDB_ROOT_USERNAME=mongouser
-      # - MONGO_INITDB_ROOT_PASSWORD=mongopass
+      - MONGO_INITDB_ROOT_USERNAME=mongouser
+      - MONGO_INITDB_ROOT_PASSWORD=mongopass
       - MONGO_INITDB_DATABASE=prod-db
       - MONGO_REPLICA_SET_NAME=mongo-prod-rs
       - TZ="UTC"
     volumes:
       - mongo-three-data:/data/db
       # Use below line if you are running the container in linux machine
-      # - ../keyfile-linux/mongoKeyFileLinux:/opt/keyfile/mongoKeyFileLinux
+      - ../keyfile-linux/mongoKeyFileLinux:/opt/keyfile/mongoKeyFileLinux
       # Use below line if you are running the container in linux machine
       # - ../keyfile-mac/mongoKeyFileMac:/opt/keyfile/mongoKeyFileMac
     ports:
@@ -25,6 +25,6 @@ services:
         test $$(mongosh --quiet -u mongouser -p mongopass --eval "rs.status().ok") -eq 1
       interval: 10s
       start_period: 30s
-    command: ["mongod", "--replSet", "mongo-prod-rs", "--bind_ip", "mongo-three,0.0.0.0"]
+    command: ["mongod", "--replSet", "mongo-prod-rs", "--bind_ip", "0.0.0.0", "--auth",  "--keyFile", "/opt/keyfile/mongoKeyFileLinux"]
 volumes:
   mongo-three-data:
