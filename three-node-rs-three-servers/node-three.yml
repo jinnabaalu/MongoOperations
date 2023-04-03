@@ -7,8 +7,8 @@ services:
     environment:
       - PUID=1000
       - PGID=1000
-      - MONGO_INITDB_ROOT_USERNAME=mongouser
-      - MONGO_INITDB_ROOT_PASSWORD=mongopass
+      # - MONGO_INITDB_ROOT_USERNAME=mongouser
+      # - MONGO_INITDB_ROOT_PASSWORD=mongopass
       - MONGO_INITDB_DATABASE=prod-db
       - MONGO_REPLICA_SET_NAME=mongo-prod-rs
       - TZ="UTC"
