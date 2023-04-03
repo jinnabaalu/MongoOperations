@@ -24,7 +24,7 @@ chmod 600 mongoKeyFileMac
 - Create the file if you are on linux and running as a container
 ```bash
 openssl rand -base64 756 > mongoKeyFileLinux
-chmod 600 mongoKeyFileLinux
+chmod 400 mongoKeyFileLinux
 sudo chown 999 mongoKeyFileLinux
 sudo chgrp 999 mongoKeyFileLinux
 ```

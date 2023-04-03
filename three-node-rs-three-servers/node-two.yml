@@ -25,6 +25,6 @@ services:
         test $$(mongosh --quiet -u mongouser -p mongopass --eval "rs.status().ok") -eq 1
       interval: 10s
       start_period: 30s
-    command: ["mongod", "--replSet", "mongo-prod-rs", "--bind_ip", "localhost,mongo-two,10.3.252.82", "--auth",  "--keyFile", "/opt/keyfile/mongoKeyFileLinux"]
+    command: ["mongod", "--replSet", "mongo-prod-rs", "--bind_ip", "localhost,mongo-two,0.0.0.0", "--auth",  "--keyFile", "/opt/keyfile/mongoKeyFileLinux"]
 volumes:
   mongo-two-data:
