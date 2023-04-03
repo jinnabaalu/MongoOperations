@@ -15,9 +15,9 @@ services:
     volumes:
       - mongo-one-data:/data/db
       # Use below line if you are running the container in linux machine
-      # - ../keyfile-linux/mongoKeyFileLinux:/opt/keyfile/mongoKeyFileLinux
+      - ../keyfile-linux/mongoKeyFileLinux:/opt/keyfile/mongoKeyFileLinux
       # Use below line if you are running the container in linux machine
-      - ../keyfile-mac/mongoKeyFileMac:/opt/keyfile/mongoKeyFileMac
+      # - ../keyfile-mac/mongoKeyFileMac:/opt/keyfile/mongoKeyFileMac
     ports:
       - "27017:27017"
     healthcheck:
@@ -25,6 +25,6 @@ services:
         test $$(mongosh --quiet -u mongouser -p mongopass --eval "rs.status().ok") -eq 1
       interval: 10s
       start_period: 30s
-    command: ["mongod", "--replSet", "mongo-prod-rs", "--bind_ip", "localhost,mongo-one,10.3.252.81", "--auth",  "--keyFile", "/opt/keyfile/mongoKeyFileMac"]
+    command: ["mongod", "--replSet", "mongo-prod-rs", "--bind_ip", "localhost,mongo-one,10.3.252.81", "--auth",  "--keyFile", "/opt/keyfile/mongoKeyFileLinux"]
 volumes:
   mongo-one-data:
