@@ -15,7 +15,7 @@ services:
     volumes:
       - mongo-one-data:/data/db
       # Use below line if you are running the container in linux machine
-      - ../keyfile-linux/mongoKeyFileLinux:/opt/keyfile/mongoKeyFileLinux
+      - /root/keyfile-linux/mongoKeyFileLinux:/opt/keyfile/mongoKeyFileLinux
       # Use below line if you are running the container in linux machine
       # - ../keyfile-mac/mongoKeyFileMac:/opt/keyfile/mongoKeyFileMac
     ports:
