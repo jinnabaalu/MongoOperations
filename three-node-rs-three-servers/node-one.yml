@@ -28,3 +28,10 @@ services:
     command: ["mongod", "--replSet", "mongo-prod-rs", "--bind_ip", "0.0.0.0", "--auth",  "--keyFile", "/opt/keyfile/mongoKeyFileLinux"]
 volumes:
   mongo-one-data:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: /var/database/mongo-one-data
+
+# Docker volume: https://stackoverflow.com/questions/49950326/how-to-create-docker-volume-device-host-path#answer-49952217

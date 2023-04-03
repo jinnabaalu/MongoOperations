@@ -121,5 +121,5 @@ docker exec -it mongo3 mongosh --eval "rs.status()"
 ```bash
 docker stop mongo1
 docker exec -it mongo2 mongosh --eval "rs.status()"
-docker exec -it mongo3 mongosh --eval "rs.status()"
+docker exec -it mongo-three mongosh --eval "rs.status()"
 ```

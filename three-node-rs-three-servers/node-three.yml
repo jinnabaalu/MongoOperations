@@ -28,3 +28,8 @@ services:
     command: ["mongod", "--replSet", "mongo-prod-rs", "--bind_ip", "0.0.0.0", "--auth",  "--keyFile", "/opt/keyfile/mongoKeyFileLinux"]
 volumes:
   mongo-three-data:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: /var/database/mongo-three-data
