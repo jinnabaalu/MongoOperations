@@ -2,7 +2,7 @@ version: '3.9'
 services:
   mongo-one:
     image: mongo:6
-    container_name: mongo
+    container_name: mongo-one
     restart: unless-stopped
     environment:
       - PUID=1000
