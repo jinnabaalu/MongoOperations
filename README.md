@@ -25,8 +25,11 @@ chmod 600 mongoKeyFileMac
 ```bash
 openssl rand -base64 756 > mongoKeyFileLinux
 chmod 400 mongoKeyFileLinux
-sudo chown 999 mongoKeyFileLinux
-sudo chgrp 999 mongoKeyFileLinux
+
+# Do the foillowing commands at server lever
+
+chown 999 mongoKeyFileLinux
+chgrp 999 mongoKeyFileLinux
 ```
 
 ### Single Node 
