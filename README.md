@@ -55,7 +55,7 @@ docker-compose up -d
 Here is the connection string for connecting to the mongo client from the any programing lang
 
 ```bash
-mongodb://mongouser:mongopass@127.0.0.1:27017/?authSource=admin&readPreference=primary&ssl=false&replicaSet=devrs
+mongodb://mongouser:mongopass@127.0.0.1:27017/?authSource=admin&readPreference=primary&ssl=false&replicaSet=mongo-rs
 ```
 
 # Deploying Mongo 3 Node Cluster 
@@ -72,7 +72,7 @@ docker-compose up -d
 
 ```bash
 docker exec -it mongo1 mongosh --quiet -u mongouser -p mongopass --eval "rs.initiate({
- _id: \"devrs\",
+ _id: \"mongo-rs\",
  members: [
    {_id: 0, host: \"mongo1\"},
    {_id: 1, host: \"mongo2\"},

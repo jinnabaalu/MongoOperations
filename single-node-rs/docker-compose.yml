@@ -11,7 +11,7 @@ services:
       - MONGO_INITDB_ROOT_USERNAME=mongouser
       - MONGO_INITDB_ROOT_PASSWORD=mongopass
       - MONGO_INITDB_DATABASE=mydatabase
-      - MONGO_REPLICA_SET_NAME=devrs
+      - MONGO_REPLICA_SET_NAME=mongo-rs
       - TZ="UTC"
     volumes:
       - mongodb_data:/data/db
@@ -23,10 +23,10 @@ services:
       - 27017:27017
     healthcheck:
       test: |
-        test $$(mongosh --quiet -u mongouser -p mongopass --eval "try { rs.initiate({ _id: 'devrs', members: [{ _id: 0, host: 'mongodb' }] }).ok } catch (_) { rs.status().ok }") -eq 1
+        test $$(mongosh --quiet -u mongouser -p mongopass --eval "try { rs.initiate({ _id: 'mongo-rs', members: [{ _id: 0, host: 'mongodb' }] }).ok } catch (_) { rs.status().ok }") -eq 1
       interval: 10s
       start_period: 30s
-    command: ["mongod", "--replSet", "devrs", "--bind_ip", "localhost,mongodb",  "--keyFile", "/opt/keyfile/mongoKeyFileMac"]
-    #command: "--bind_ip_all --keyFile /opt/keyfile/keyfile --replSet devrs"
+    command: ["mongod", "--replSet", "mongo-rs", "--bind_ip", "localhost,mongodb",  "--keyFile", "/opt/keyfile/mongoKeyFileMac"]
+    #command: "--bind_ip_all --keyFile /opt/keyfile/keyfile --replSet mongo-rs"
 volumes:
   mongodb_data:
