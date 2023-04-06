@@ -15,7 +15,7 @@ services:
     volumes:
       - mongo3-data:/data/db
       # Use below line if you are running the container in linux machine
-      - ../keyfile-linux/mongoKeyFileLinux:/opt/keyfile/mongoKeyFileLinux
+      - /root/keyfile-linux/mongoKeyFileLinux:/opt/keyfile/mongoKeyFileLinux
       # Use below line if you are running the container in linux machine
       # - ../keyfile-mac/mongoKeyFileMac:/opt/keyfile/mongoKeyFileMac
     ports:
@@ -27,4 +27,9 @@ services:
       start_period: 30s
     command: ["mongod", "--replSet", "mongo-rs", "--bind_ip", "0.0.0.0", "--auth",  "--keyFile", "/opt/keyfile/mongoKeyFileLinux"]
 volumes:
-  mongo3-data:
+  mongo-three-data:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: /var/database/mongo-three-data

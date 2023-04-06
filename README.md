@@ -2,8 +2,9 @@
 
 - [Create the keyfile for Internal Authentication](https://jinnabalu.com/Create-keyfile-for-MongoDB)
 - [MongoDB Single Node Cluster with Replicaset](https://jinnabalu.com/Mongo-Single-Node-Cluster)
-- [MongoDB 3 Node Cluster in Single Server with Replicaset]()
-- [MongoDB 3 Node Cluster in Three Servers with Replicaset]()
+- [MongoDB 3 Node Cluster in Single Server with Replicaset](https://jinnabalu.com/Mongo-Three-Node-Cluster)
+- [Validate the MongoDB Cluster]()
+- [MongoDB 3 Node Cluster in Three Servers with Replicaset for Production]()
 - [Connect to MongoSH and create collection]()
 - [Common Commands used to interact with mongodb cluster]()
 - [Errors in MongoDB Cluster Setup]()
@@ -121,5 +122,5 @@ docker exec -it mongo3 mongosh --eval "rs.status()"
 ```bash
 docker stop mongo1
 docker exec -it mongo2 mongosh --eval "rs.status()"
-docker exec -it mongo3 mongosh --eval "rs.status()"
+docker exec -it mongo-three mongosh --eval "rs.status()"
 ```
