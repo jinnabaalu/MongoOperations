@@ -1,0 +1,56 @@
+version: "3.9"
+networks:
+  mongo_net:
+services:
+  # Routers, entry points for client applications. They direct queries and data requests to the appropriate shard servers based on the data distribution.
+  mongodb_router:
+    image: mongo:6.0.7
+    container_name: mongodb_router
+    ports:
+      - 127.0.0.1:27017:27017
+    command: mongos --configdb csvr/mongodb_config:27017 --bind_ip 0.0.0.0
+    healthcheck:
+      test: ["CMD", "mongo", "--eval", "rs.status().ok"]
+      interval: 10s
+      start_period: 30s
+    volumes:
+      - mongodb_router_data:/data/db
+    depends_on:
+      - mongodb_config
+      - mongodb_node
+    networks:
+      - mongo_net
+  # Shard Servers, are responsible for storing data. Data is distributed across multiple shard servers to provide horizontal scalability.
+  mongodb_node:
+    build:
+      context: .
+      dockerfile: mongodb/MongoDB.Dockerfile
+    container_name: mongodb_node
+    command: mongod --shardsvr --replSet rs1
+    healthcheck:
+      test: ["CMD", "mongo", "--eval", "rs.status().ok"]
+      interval: 10s
+      start_period: 30s
+    volumes:
+      - mongodb_node_data:/data/db
+    depends_on:
+      - mongodb_config
+    networks:
+      - mongo_net
+  # Config Servers, configurations about data distribution across shards and the cluster's structure
+  mongodb_config:
+    image: mongo:6.0.7
+    container_name: mongodb_config
+    command: mongod --configsvr --dbpath /data/db --replSet csvr
+    healthcheck:
+      test: ["CMD", "mongo", "--eval", "rs.status().ok"]
+      interval: 10s
+      start_period: 30s
+    volumes:
+      - mongodb_config_data:/data/db
+    networks:
+      - mongo_net
+volumes:
+  mongodb_config_data:
+  mongodb_node_data:
+  mongodb_router_data:
