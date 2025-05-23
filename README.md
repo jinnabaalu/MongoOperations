@@ -1,5 +1,5 @@
 # MongoDB as Container 
-- [MongoDB Single Node Cluster for Devs](https://jinnabalu.com/Mongo-Single-Node-Cluster-for-Devs)
+- [MongoDB Single Node Cluster for Devs](https://jinnabalu.com/oio/docs/RunMongoDBForDev)
 - [Create the keyfile for Internal Authentication](https://jinnabalu.com/Create-keyfile-for-MongoDB)
 - [MongoDB Single Node Cluster with Replicaset](https://jinnabalu.com/Mongo-Single-Node-Cluster)
 - [MongoDB 3 Node Cluster in Single Server with Replicaset](https://jinnabalu.com/Mongo-Three-Node-Cluster)
