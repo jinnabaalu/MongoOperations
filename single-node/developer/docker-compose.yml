@@ -1,0 +1,13 @@
+services:
+  mongodb:
+    image: mongo:8
+    container_name: mongodb
+    hostname: mongodb
+    restart: unless-stopped
+    environment:
+      - MONGO_INITDB_DATABASE=oiodb
+    volumes:
+      - ./tmp/mongo/data:/data/db
+    ports:
+      - 27017:27017
+    command: ["mongod", "--bind_ip_all"]
